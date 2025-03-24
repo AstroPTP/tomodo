@@ -1,24 +1,41 @@
 package com.example.pomodoroapp;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    private TextView timerTextView;
+    private Button startButton, pauseButton, resetButton;
+
+    private PomodoroTimer pomodoroTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        timerTextView = findViewById(R.id.timerTextView);
+        startButton = findViewById(R.id.startButton);
+        pauseButton = findViewById(R.id.pauseButton);
+        resetButton = findViewById(R.id.resetButton);
+
+        pomodoroTimer = new PomodoroTimer(new PomodoroTimer.TimerListener() {
+            @Override
+            public void onTick(String formattedTime) {
+                runOnUiThread(() -> timerTextView.setText(formattedTime));
+            }
+
+            @Override
+            public void onFinish() {
+                runOnUiThread(() -> timerTextView.setText("00:00"));
+            }
         });
+
+        startButton.setOnClickListener(v -> pomodoroTimer.start());
+        pauseButton.setOnClickListener(v -> pomodoroTimer.pause());
+        resetButton.setOnClickListener(v -> pomodoroTimer.reset());
     }
 }
