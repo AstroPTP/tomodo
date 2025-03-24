@@ -1,0 +1,55 @@
+# ====================================
+# Android Studio - .gitignore
+# ====================================
+
+# Gradle
+.gradle/
+**/build/
+
+# Local config
+local.properties
+.idea/
+
+# IDE files
+*.iml
+*.ipr
+*.iws
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+*.apk
+*.ap_
+*.aab
+
+# Captures and generated files
+captures/
+.externalNativeBuild/
+.cxx/
+
+# Logs and temp files
+*.log
+*.tmp
+*.temp
+
+# Keystore files (used for signing apps - never commit!)
+*.jks
+*.keystore
+
+# Firebase / Crashlytics
+fabric.properties
+crashlytics-build.properties
+
+# Jetpack Compose build logic
+buildSrc/build/
+
+# Gradle wrapper (keep this one!)
+!gradle/wrapper/gradle-wrapper.jar
