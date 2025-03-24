@@ -12,6 +12,9 @@ public class MainActivity extends AppCompatActivity {
 
     private PomodoroTimer pomodoroTimer;
 
+    private Button musicButton;
+    private MusicPlayer musicPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
         pauseButton = findViewById(R.id.pauseButton);
         resetButton = findViewById(R.id.resetButton);
 
+        /* ====== Timer ===== */
         pomodoroTimer = new PomodoroTimer(new PomodoroTimer.TimerListener() {
             @Override
             public void onTick(String formattedTime) {
@@ -34,8 +38,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        /* ====== Music ===== */
+        musicButton = findViewById(R.id.musicButton);
+        musicPlayer = new MusicPlayer();
+
+        musicButton.setOnClickListener(v -> {
+            if (musicPlayer.isPlaying()) {
+                musicPlayer.pauseMusic();
+                musicButton.setText("Play Music");
+            } else {
+                musicPlayer.startMusic(this);
+                musicButton.setText("Pause Music");
+            }
+        });
+
         startButton.setOnClickListener(v -> pomodoroTimer.start());
         pauseButton.setOnClickListener(v -> pomodoroTimer.pause());
         resetButton.setOnClickListener(v -> pomodoroTimer.reset());
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        musicPlayer.stopMusic();
     }
 }

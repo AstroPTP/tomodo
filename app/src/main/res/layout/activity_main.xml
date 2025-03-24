@@ -35,4 +35,11 @@
         android:layout_height="wrap_content"
         android:text="Reset"
         android:layout_marginTop="16dp"/>
+
+    <Button
+        android:id="@+id/musicButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Play Music"
+        android:layout_marginTop="16dp"/>
 </LinearLayout>
